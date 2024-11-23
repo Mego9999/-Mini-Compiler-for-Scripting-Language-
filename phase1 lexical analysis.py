@@ -77,9 +77,11 @@ class LexicalAnalyzer:
                     identifier = line[identifier_start:i]
                     identifier_upper = identifier.upper()
 
-                    # Distinguish between keywords and identifiers
+                    # Distinguish between keywords, logical operators, and identifiers
                     if identifier_upper in self.keywords:
                         self.tokens.append(("keyword", identifier_upper))
+                    elif identifier_upper in self.Logical_Operators:
+                        self.tokens.append(("Logical Operator", identifier_upper))
                     else:
                         # Detect function calls or variable declarations
                         if self.tokens and self.tokens[-1][1] == "CALL":
@@ -186,13 +188,20 @@ class LexicalAnalyzer:
 # Example source code
 source_code = """
 LET name = 'muhammed'
-LET a = 5
-LET b = 10
-LET c = a + b
-LET d = c * 2
-LET e = a - b
-CALL myFunction(a, b)
-CALL anotherFunction
+LET a = 5 
+LET b = 10 
+LET z = 2
+IF a == b OR a > z
+THEN  
+LET c = a + b 
+LET d = c * 2 
+a++
+ELSE 
+LET e = a - b 
+z+=a
+ENDIF 
+CALL myFunction(a, b) 
+CALL Help
 """
 
 # Instantiate and tokenize
